@@ -25,7 +25,7 @@ export default function Item({ item, remove }) {
             }}
           >
             <TimeIcon fontSize="10" color="success" />
-            <Typography variant="caption" sx={{ color: green[500] }}>
+            <Typography variant="caption" sx={{ color: "green" }}>
               A few second ago
             </Typography>
           </Box>

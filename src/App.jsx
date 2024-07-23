@@ -21,7 +21,7 @@ export default function App() {
   };
   console.log(data);
   return (
-    <Box>
+    <Box sx={{ height: "2000px" }}>
       <Header />
       <Container maxWidth="sm" sx={{ mt: 5 }}>
         {showForm && <Form add={add} />}
