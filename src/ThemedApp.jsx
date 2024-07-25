@@ -1,7 +1,13 @@
 import { useState, createContext, useContext, useMemo } from "react";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import {
+  CssBaseline,
+  Snackbar,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import App from "./App";
 import { brown, deepPurple, grey, red, teal } from "@mui/material/colors";
+import AppDrawer from "./components/AppDrawer";
 
 export const AppContext = createContext();
 export function useApp() {
@@ -10,7 +16,9 @@ export function useApp() {
 export default function ThemedApp() {
   const [mode, setMode] = useState("light");
   const [showForm, setShowForm] = useState(false);
-
+  const [globalMsg, setGlobalMsg] = useState(null);
+  const [auth, setAuth] = useState(null);
+  const [showDrawer, setShowDrawer] = useState(false);
   const theme = useMemo(() => {
     return createTheme({
       palette: {
@@ -26,8 +34,32 @@ export default function ThemedApp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContext.Provider value={{ showForm, setShowForm, mode, setMode }}>
+      <AppContext.Provider
+        value={{
+          showDrawer,
+          setShowDrawer,
+          showForm,
+          setShowForm,
+          globalMsg,
+          setGlobalMsg,
+          auth,
+          setAuth,
+          mode,
+          setMode,
+        }}
+      >
         <App />
+        <AppDrawer />
+        <Snackbar
+          anchorOrigin={{
+            horizontal: "center",
+            vertical: "bottom",
+          }}
+          open={Boolean(globalMsg)}
+          autoHideDuration={3000}
+          onClose={() => setGlobalMsg(null)}
+          message={globalMsg}
+        />
         <CssBaseline />
       </AppContext.Provider>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import { useApp } from "../ThemedApp";
+import { AppContext, useApp } from "../ThemedApp";
 import { Box, AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -6,12 +6,18 @@ import {
   LightMode as LightModeIcon,
   DarkMode as DarkModeIcon,
 } from "@mui/icons-material";
+import { useContext } from "react";
 export default function Header() {
-  const { showForm, setShowForm, mode, setMode } = useApp();
+  const { showForm, setShowForm, mode, setMode, showDrawer, setShowDrawer } =
+    useContext(AppContext);
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton color="inherit" edge="start">
+        <IconButton
+          color="inherit"
+          edge="start"
+          onClick={() => setShowDrawer(true)}
+        >
           <MenuIcon />
         </IconButton>
         <Typography sx={{ flexGrow: 1, ml: 2 }}>Yaycha</Typography>
