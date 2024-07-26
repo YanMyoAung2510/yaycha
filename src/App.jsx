@@ -18,8 +18,12 @@ export default function App() {
   };
   const add = (content, name) => {
     const id = data[0].id + 1;
-    setData([{ id, content, name }, ...data]);
-    setGlobalMsg("An item added");
+    if (!content) {
+      setGlobalMsg("please write shits");
+    } else {
+      setData([{ id, content, name }, ...data]);
+      setGlobalMsg("An item added");
+    }
   };
   console.log(data);
   return (

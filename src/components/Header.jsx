@@ -1,4 +1,4 @@
-import { AppContext, useApp } from "../ThemedApp";
+import { useApp } from "../useApp";
 import { Box, AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -9,7 +9,7 @@ import {
 import { useContext } from "react";
 export default function Header() {
   const { showForm, setShowForm, mode, setMode, showDrawer, setShowDrawer } =
-    useContext(AppContext);
+    useApp();
   return (
     <AppBar position="sticky">
       <Toolbar>

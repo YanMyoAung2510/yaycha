@@ -1,37 +1,63 @@
-import { useState, createContext, useContext, useMemo } from "react";
-import {
-  CssBaseline,
-  Snackbar,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import App from "./App";
-import { brown, deepPurple, grey, red, teal } from "@mui/material/colors";
-import AppDrawer from "./components/AppDrawer";
-
+import { useState, createContext, useMemo } from "react";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { deepOrange, deepPurple, green, grey } from "@mui/material/colors";
+import Template from "./Template";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Comments from "./pages/Comments";
+import Profile from "./pages/Profile";
+import Likes from "./pages/Likes";
 export const AppContext = createContext();
-export function useApp() {
-  return useContext(AppContext);
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Template />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/comments/:id",
+        element: <Comments />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
+      },
+      {
+        path: "/likes/:id",
+        element: <Likes />,
+      },
+    ],
+  },
+]);
 export default function ThemedApp() {
-  const [mode, setMode] = useState("light");
+  const [showDrawer, setShowDrawer] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [globalMsg, setGlobalMsg] = useState(null);
   const [auth, setAuth] = useState(null);
-  const [showDrawer, setShowDrawer] = useState(false);
+  const [mode, setMode] = useState("dark");
   const theme = useMemo(() => {
     return createTheme({
       palette: {
         mode,
-        primary: teal,
+        primary: deepOrange,
         banner: mode === "dark" ? grey[800] : grey[200],
-        text: {
-          fade: grey[500],
-        },
+        text: { fade: grey[500] },
       },
     });
   }, [mode]);
-
   return (
     <ThemeProvider theme={theme}>
       <AppContext.Provider
@@ -48,19 +74,8 @@ export default function ThemedApp() {
           setMode,
         }}
       >
-        <App />
-        <AppDrawer />
-        <Snackbar
-          anchorOrigin={{
-            horizontal: "center",
-            vertical: "bottom",
-          }}
-          open={Boolean(globalMsg)}
-          autoHideDuration={3000}
-          onClose={() => setGlobalMsg(null)}
-          message={globalMsg}
-        />
-        <CssBaseline />
+        <RouterProvider router={router} />
+        <CssBaseline />{" "}
       </AppContext.Provider>
     </ThemeProvider>
   );

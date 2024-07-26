@@ -18,7 +18,7 @@ import {
   Login as LoginIcon,
 } from "@mui/icons-material";
 import { deepPurple } from "@mui/material/colors";
-import { useApp } from "../ThemedApp";
+import { useApp } from "../useApp";
 export default function AppDrawer() {
   const { showDrawer, setShowDrawer, auth, setAuth } = useApp();
   return (
