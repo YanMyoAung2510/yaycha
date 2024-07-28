@@ -16,7 +16,9 @@ export default function Form({ add }) {
       onSubmit={(e) => {
         e.preventDefault();
         const content = contentRef.current.value;
-        add(content, "Alice");
+        console.log(contentRef.current);
+        if (content) add(content, "Alice");
+
         e.currentTarget.reset();
       }}
     >

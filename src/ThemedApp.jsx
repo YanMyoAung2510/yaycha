@@ -20,23 +20,29 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
+        children: [
+          {
+            path: "test",
+            element: <h1>hello world</h1>,
+          },
+        ],
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
       },
       {
-        path: "/comments/:id",
+        path: "comments/:id",
         element: <Comments />,
       },
       {
-        path: "/profile/:id",
+        path: "profile/:id",
         element: <Profile />,
       },
       {
-        path: "/likes/:id",
+        path: "likes/:id",
         element: <Likes />,
       },
     ],
@@ -75,7 +81,7 @@ export default function ThemedApp() {
         }}
       >
         <RouterProvider router={router} />
-        <CssBaseline />{" "}
+        <CssBaseline />
       </AppContext.Provider>
     </ThemeProvider>
   );

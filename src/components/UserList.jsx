@@ -11,18 +11,18 @@ export default function UserList({ title }) {
   return (
     <Box>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        {title}{" "}
-      </Typography>{" "}
+        {title}
+      </Typography>
       <List>
         <ListItem>
           <ListItemAvatar>
             <Avatar />
-          </ListItemAvatar>{" "}
+          </ListItemAvatar>
           <ListItemText
             primary="Alice @alice"
             secondary="Alice's profile bio"
           />
-        </ListItem>{" "}
+        </ListItem>
       </List>
     </Box>
   );
