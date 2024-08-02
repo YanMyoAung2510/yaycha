@@ -21,7 +21,7 @@ export default function Profile() {
           {" "}
           <Typography>Alice</Typography>
           <Typography sx={{ fontSize: "0.8em", color: "text.fade" }}>
-            Alice's profile bio content here{" "}
+            Alice's profile bio content here
           </Typography>
         </Box>{" "}
       </Box>
@@ -33,7 +33,7 @@ export default function Profile() {
           content: "A post content from Alice",
           name: "Alice",
         }}
-      />{" "}
+      />
     </Box>
   );
 }
