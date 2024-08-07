@@ -9,7 +9,15 @@ import Register from "./pages/Register";
 import Comments from "./pages/Comments";
 import Profile from "./pages/Profile";
 import Likes from "./pages/Likes";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const queryClient = new QueryClient();
+
 export const AppContext = createContext();
+
+export const useApp = () => createContext();
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+
+        //* load data using loader and fetch in child component using useLoaderData */
+
+        // loader: async () => {
+        //   const api = import.meta.env.VITE_API;
+        //   const res = await fetch(`${api}/content/posts`);
+        //   return res.json();
+        // },
       },
       {
         path: "login",
@@ -80,7 +96,9 @@ export default function ThemedApp() {
           setMode,
         }}
       >
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
         <CssBaseline />
       </AppContext.Provider>
     </ThemeProvider>

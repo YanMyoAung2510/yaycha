@@ -19,7 +19,7 @@ export default function App() {
   const add = (content, name) => {
     const id = data[0].id + 1;
     if (!content) {
-      setGlobalMsg("please write shits");
+      setGlobalMsg("please write some");
     } else {
       setData([{ id, content, name }, ...data]);
       setGlobalMsg("An item added");
