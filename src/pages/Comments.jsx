@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { json, useNavigate, useParams } from "react-router-dom";
 import { Alert, Box, Button, TextField } from "@mui/material";
 import { useApp } from "../useApp";
 import { queryClient } from "../ThemedApp";
@@ -13,6 +13,7 @@ export default function Comments() {
     const res = await fetch(`${api}/content/posts/${id}`);
     return res.json();
   });
+
   const removePost = useMutation(async (id) => {
     await fetch(`${api}/content/posts/${id}`, {
       method: "DELETE",
