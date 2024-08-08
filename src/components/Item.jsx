@@ -7,8 +7,10 @@ import {
 import { green } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { formatRelative } from "date-fns";
+import { useApp } from "../useApp";
 export default function Item({ item, remove, primary, comment }) {
   const navigate = useNavigate();
+  const { setGlobalMsg } = useApp();
 
   return (
     <Card sx={{ mb: 2 }}>
@@ -18,6 +20,7 @@ export default function Item({ item, remove, primary, comment }) {
           if (item.comments.length > 0) {
             navigate(`/comments/${item.id}`);
           } else {
+            setGlobalMsg("No comments");
             return false;
           }
         }}
