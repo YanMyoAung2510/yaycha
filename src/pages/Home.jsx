@@ -75,13 +75,12 @@ export default function Home() {
     },
     onMutate: (id) => {
       queryClient.cancelQueries("posts");
-
-      console.log("onMutate");
-    },
-    onSuccess: (id) => {
       queryClient.setQueryData("posts", (old) =>
         old.filter((item) => item.id !== id)
       );
+      console.log("onMutate");
+    },
+    onSuccess: (id) => {
       setGlobalMsg("this is success");
       console.log("success");
     },
