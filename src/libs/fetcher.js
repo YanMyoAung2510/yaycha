@@ -1,4 +1,5 @@
 const api = import.meta.env.VITE_API;
+
 export async function postUser(data) {
   const res = await fetch(`${api}/users`, {
     method: "POST",
@@ -12,6 +13,7 @@ export async function postUser(data) {
   }
   throw new Error("Error: Check Network Log");
 }
+
 export async function postLogin(username, password) {
   const res = await fetch(`${api}/login`, {
     method: "POST",
