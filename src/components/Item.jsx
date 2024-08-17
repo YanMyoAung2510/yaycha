@@ -8,7 +8,13 @@ import { green } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { formatRelative } from "date-fns";
 import { useApp } from "../useApp";
-export default function Item({ item, remove, primary, comment }) {
+export default function Item({
+  item,
+  remove,
+  primary,
+  comment,
+  showDeleteButton = true,
+}) {
   const navigate = useNavigate();
   const { setGlobalMsg } = useApp();
 
@@ -45,7 +51,7 @@ export default function Item({ item, remove, primary, comment }) {
               {formatRelative(item.created, new Date())}{" "}
             </Typography>
           </Box>
-          <IconButton
+          {/* <IconButton
             size="small"
             onClick={(e) => {
               remove(item.id);
@@ -53,22 +59,45 @@ export default function Item({ item, remove, primary, comment }) {
             }}
           >
             <DeleteIcon fontSize="inherit" />
-          </IconButton>
+          </IconButton> */}
+          {showDeleteButton && ( // Conditionally render the delete button
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                remove(item.id);
+                e.stopPropagation();
+              }}
+            >
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+          )}
         </Box>
         <Typography sx={{ my: 3, overflow: "hidden", mr: 2.2 }}>
           {item.content}
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 1,
-          }}
-        >
-          <UserIcon fontSize="12" color="warning" />
-          <Typography variant="caption">{item.users.name}</Typography>
-        </Box>
+        {showDeleteButton && (
+          <Box
+            onClick={(e) => {
+              navigate(`/profile/${item.users.id}`);
+              e.stopPropagation;
+            }}
+            sx={{
+              ":hover": {
+                color: "gray",
+                transition: "0.3s",
+                cursor: "pointer",
+              },
+              transition: "0.3s",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <UserIcon fontSize="12" color="warning" />
+            <Typography variant="caption">{item.users.name}</Typography>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

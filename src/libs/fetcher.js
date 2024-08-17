@@ -27,3 +27,23 @@ export async function postLogin(username, password) {
   }
   throw new Error("Incorrect username or password");
 }
+
+export async function fetchUser(id) {
+  const token = getToken();
+  const res = await fetch(`${api}/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
+}
+
+export async function fetchPosts() {
+  const res = await fetch(`${api}/content/posts`);
+  return res.json();
+}
+
+function getToken() {
+  return localStorage.getItem("token");
+}

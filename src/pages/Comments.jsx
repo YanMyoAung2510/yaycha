@@ -6,32 +6,37 @@ import { queryClient } from "../ThemedApp";
 import Item from "../components/Item";
 const api = import.meta.env.VITE_API;
 export default function Comments() {
-  const { id } = useParams();
+  const { id: postId } = useParams();
   const navigate = useNavigate();
   const { setGlobalMsg } = useApp();
-  const { isLoading, isError, error, data } = useQuery("comments", async () => {
-    const res = await fetch(`${api}/content/posts/${id}`);
-    return res.json();
-  });
+  const { isLoading, isError, error, data } = useQuery(
+    ["comments", postId],
+    async () => {
+      const res = await fetch(`${api}/content/posts/${postId}`);
+      return res.json();
+    }
+  );
 
-  const removePost = useMutation(async (id) => {
-    await fetch(`${api}/content/posts/${id}`, {
+  const removePost = useMutation(async (postId) => {
+    await fetch(`${api}/content/posts/${postId}`, {
       method: "DELETE",
     });
     navigate("/");
     setGlobalMsg("A post deleted");
   });
   const removeComment = useMutation(
-    async (id) => {
-      await fetch(`${api}/content/comments/${id}`, {
+    async (postId) => {
+      await fetch(`${api}/content/comments/${postId}`, {
         method: "DELETE",
       });
     },
     {
-      onMutate: (id) => {
+      onMutate: (postId) => {
         queryClient.cancelQueries("comments");
         queryClient.setQueryData("comments", (old) => {
-          old.comments = old.comments.filter((comment) => comment.id !== id);
+          old.comments = old.comments.filter(
+            (comment) => comment.postId !== postId
+          );
           return { ...old };
         });
         setGlobalMsg("A comment deleted");
@@ -53,7 +58,11 @@ export default function Comments() {
       <Item primary item={data} remove={removePost.mutate} />
       {data.comments.map((comment) => {
         return (
-          <Item key={comment.id} item={comment} remove={removeComment.mutate} />
+          <Item
+            key={comment.postId}
+            item={comment}
+            remove={removeComment.mutate}
+          />
         );
       })}
       <form>
