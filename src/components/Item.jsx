@@ -23,12 +23,7 @@ export default function Item({
       {primary && <Box sx={{ height: 50, bgcolor: green[500] }} />}
       <CardContent
         onClick={() => {
-          if (item.comments.length > 0) {
-            navigate(`/comments/${item.id}`);
-          } else {
-            setGlobalMsg("No comments");
-            return false;
-          }
+          navigate(`/comments/${item.id}`);
         }}
       >
         <Box
@@ -51,15 +46,7 @@ export default function Item({
               {formatRelative(item.created, new Date())}{" "}
             </Typography>
           </Box>
-          {/* <IconButton
-            size="small"
-            onClick={(e) => {
-              remove(item.id);
-              e.stopPropagation();
-            }}
-          >
-            <DeleteIcon fontSize="inherit" />
-          </IconButton> */}
+
           {showDeleteButton && ( // Conditionally render the delete button
             <IconButton
               size="small"
@@ -79,7 +66,7 @@ export default function Item({
           <Box
             onClick={(e) => {
               navigate(`/profile/${item.users.id}`);
-              e.stopPropagation;
+              e.stopPropagation();
             }}
             sx={{
               ":hover": {

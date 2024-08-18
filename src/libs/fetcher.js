@@ -47,3 +47,14 @@ export async function fetchPosts() {
 function getToken() {
   return localStorage.getItem("token");
 }
+
+export async function fetchVerify() {
+  const token = getToken();
+  const res = await fetch(`${api}/verify`, {
+    headers: { authorization: `Bearer ${token}` },
+  });
+  if (res.ok) {
+    return res.json();
+  }
+  return false;
+}

@@ -1,4 +1,4 @@
-import { useState, createContext, useMemo } from "react";
+import { useState, createContext, useMemo, useEffect } from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { deepOrange, deepPurple, green, grey } from "@mui/material/colors";
@@ -10,6 +10,7 @@ import Comments from "./pages/Comments";
 import Profile from "./pages/Profile";
 import Likes from "./pages/Likes";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { fetchVerify } from "./libs/fetcher";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
@@ -65,6 +66,22 @@ const router = createBrowserRouter([
   },
 ]);
 export default function ThemedApp() {
+  useEffect(() => {
+    // const verifyUser = async () => {
+    //   const user = await fetchVerify();
+    //   if (user) {
+    //     setAuth(user);
+    //   }
+    // };
+
+    // verifyUser();
+    (async () => {
+      const user = await fetchVerify();
+      if (user) {
+        setAuth(user);
+      }
+    })();
+  }, []);
   const [showDrawer, setShowDrawer] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [globalMsg, setGlobalMsg] = useState(null);
