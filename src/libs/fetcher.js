@@ -32,7 +32,7 @@ export async function postPost(content) {
   throw new Error("Error: Check Network Log");
 }
 
-export async function postComment(content, postId) {
+export async function addComment(content, postId) {
   const token = getToken();
   const res = await fetch(`${api}/content/comments`, {
     method: "POST",

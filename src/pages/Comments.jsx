@@ -8,7 +8,7 @@ import { useQuery, useMutation } from "react-query";
 import { queryClient } from "../ThemedApp";
 import {
   fetchComments,
-  postComment,
+  addComment,
   deletePost,
   deleteComment,
 } from "../libs/fetcher";
@@ -26,7 +26,7 @@ export default function Comments() {
     fetchComments(id)
   );
 
-  const addComment = useMutation((content) => postComment(content, id), {
+  const newComment = useMutation((content) => addComment(content, id), {
     onSuccess: async (comment) => {
       await queryClient.cancelQueries("comments");
       await queryClient.setQueryData("comments", (old) => {
@@ -91,7 +91,7 @@ export default function Comments() {
             const content = contentInput.current.value;
             if (!content) return false;
 
-            addComment.mutate(content);
+            newComment.mutate(content);
 
             e.currentTarget.reset();
           }}
