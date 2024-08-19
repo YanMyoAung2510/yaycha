@@ -1,5 +1,55 @@
 const api = import.meta.env.VITE_API;
 
+function getToken() {
+  return localStorage.getItem("token");
+}
+
+export async function fetchPosts() {
+  const res = await fetch(`${api}/content/posts`);
+  return res.json();
+}
+
+export async function fetchComments(id) {
+  const res = await fetch(`${api}/content/posts/${id}`);
+  return res.json();
+}
+
+export async function postPost(content) {
+  const token = getToken();
+  const res = await fetch(`${api}/content/posts`, {
+    method: "POST",
+    body: JSON.stringify({ content }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.ok) {
+    return res.json();
+  }
+
+  throw new Error("Error: Check Network Log");
+}
+
+export async function postComment(content, postId) {
+  const token = getToken();
+  const res = await fetch(`${api}/content/comments`, {
+    method: "POST",
+    body: JSON.stringify({ content, postId }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.ok) {
+    return res.json();
+  }
+
+  throw new Error("Error: Check Network Log");
+}
+
 export async function postUser(data) {
   const res = await fetch(`${api}/users`, {
     method: "POST",
@@ -8,9 +58,11 @@ export async function postUser(data) {
       "Content-Type": "application/json",
     },
   });
+
   if (res.ok) {
     return res.json();
   }
+
   throw new Error("Error: Check Network Log");
 }
 
@@ -22,10 +74,27 @@ export async function postLogin(username, password) {
       "Content-Type": "application/json",
     },
   });
+
   if (res.ok) {
     return res.json();
   }
+
   throw new Error("Incorrect username or password");
+}
+
+export async function fetchVerify() {
+  const token = getToken();
+  const res = await fetch(`${api}/verify`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (res.ok) {
+    return res.json();
+  }
+
+  return false;
 }
 
 export async function fetchUser(id) {
@@ -39,22 +108,26 @@ export async function fetchUser(id) {
   return res.json();
 }
 
-export async function fetchPosts() {
-  const res = await fetch(`${api}/content/posts`);
-  return res.json();
-}
-
-function getToken() {
-  return localStorage.getItem("token");
-}
-
-export async function fetchVerify() {
+export async function deletePost(id) {
   const token = getToken();
-  const res = await fetch(`${api}/verify`, {
-    headers: { authorization: `Bearer ${token}` },
+  const res = await fetch(`${api}/content/posts/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-  if (res.ok) {
-    return res.json();
-  }
-  return false;
+
+  return res.text();
+}
+
+export async function deleteComment(id) {
+  const token = getToken();
+  const res = await fetch(`${api}/content/comments/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.text();
 }

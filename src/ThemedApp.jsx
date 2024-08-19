@@ -67,14 +67,6 @@ const router = createBrowserRouter([
 ]);
 export default function ThemedApp() {
   useEffect(() => {
-    // const verifyUser = async () => {
-    //   const user = await fetchVerify();
-    //   if (user) {
-    //     setAuth(user);
-    //   }
-    // };
-
-    // verifyUser();
     (async () => {
       const user = await fetchVerify();
       if (user) {

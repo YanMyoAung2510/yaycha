@@ -17,7 +17,7 @@ export default function Form({ add }) {
         e.preventDefault();
         const content = contentRef.current.value;
         console.log(contentRef.current);
-        if (content) add(content, "Alice");
+        if (content) add.mutate(content);
 
         e.currentTarget.reset();
       }}
