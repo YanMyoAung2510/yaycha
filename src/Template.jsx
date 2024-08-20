@@ -31,8 +31,7 @@ import { Outlet } from "react-router-dom";
 
 import Header from "./components/Header";
 import AppDrawer from "./components/AppDrawer";
-
-import { useApp } from "./ThemedApp";
+import { useApp } from "./useApp";
 
 export default function Template() {
   const { globalMsg, setGlobalMsg } = useApp();
@@ -52,9 +51,9 @@ export default function Template() {
           vertical: "bottom",
         }}
         open={Boolean(globalMsg)}
-        autoHideDuration={6000}
-        onClose={() => setGlobalMsg(null)}
+        autoHideDuration={5000}
         message={globalMsg}
+        onClose={() => setGlobalMsg(null)}
       />
     </Box>
   );

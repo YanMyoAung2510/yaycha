@@ -3,16 +3,17 @@ import { Alert, Box } from "@mui/material";
 import Form from "../components/Form";
 import Item from "../components/Item";
 import { useApp } from "../useApp";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
 import { queryClient } from "../ThemedApp";
 import { id } from "date-fns/locale";
-import { postPost } from "../libs/fetcher";
+import { deletePost, postPost } from "../libs/fetcher";
 
 const api = import.meta.env.VITE_API;
 
 export default function Home() {
   const { showForm, setGlobalMsg, auth } = useApp();
+  // const navigate = useNavigate();
   // const [data, setData] = useState([]);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(false);
@@ -68,22 +69,11 @@ export default function Home() {
     return res.json();
   });
 
-  const remove = useMutation({
-    mutationFn: async (id) => {
-      await fetch(`${api}/content/posts/${id}`, {
-        method: "DELETE",
-      });
-    },
-    onMutate: (id) => {
-      queryClient.cancelQueries("posts");
-      queryClient.setQueryData("posts", (old) =>
-        old.filter((item) => item.id !== id)
-      );
-      console.log("onMutate");
-    },
-    onSuccess: (id) => {
-      setGlobalMsg("this is success");
-      console.log("success");
+  const remove = useMutation(async (id) => deletePost(id), {
+    onSuccess: async () => {
+      await queryClient.refetchQueries("posts");
+
+      setGlobalMsg("A post deleted");
     },
   });
 
@@ -120,7 +110,6 @@ export default function Home() {
   });
 
   if (isError) {
-    console.log(error);
     return (
       <Box>
         <Alert severity="warning"> {error.message} </Alert>
