@@ -45,7 +45,6 @@ export default function Comments() {
       setGlobalMsg("A post deleted");
     },
   });
-
   const removeComment = useMutation(async (id) => deleteComment(id), {
     onMutate: async (id) => {
       await queryClient.cancelQueries("comments");
@@ -104,11 +103,7 @@ export default function Comments() {
               mt: 3,
             }}
           >
-            <TextField
-              inputRef={contentInput}
-              multiline
-              placeholder="Your Comment"
-            />
+            <TextField inputRef={contentInput} placeholder="Your Comment" />
             <Button type="submit" variant="contained">
               Reply
             </Button>

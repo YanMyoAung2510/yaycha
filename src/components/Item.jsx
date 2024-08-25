@@ -8,6 +8,9 @@ import { green } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { formatRelative } from "date-fns";
 import { useApp } from "../useApp";
+import LikeButton from "./LikeButton";
+import CommentButton from "./CommentButton";
+
 export default function Item({
   item,
   remove,
@@ -64,25 +67,38 @@ export default function Item({
         </Typography>
         {showDeleteButton && (
           <Box
-            onClick={(e) => {
-              navigate(`/profile/${item.users.id}`);
-              e.stopPropagation();
-            }}
             sx={{
-              ":hover": {
-                color: "gray",
-                transition: "0.3s",
-                cursor: "pointer",
-              },
-              transition: "0.3s",
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              gap: 1,
+              justifyContent: "space-between",
             }}
           >
-            <UserIcon fontSize="12" color="warning" />
-            <Typography variant="caption">{item.users.name}</Typography>
+            <Box
+              onClick={(e) => {
+                navigate(`/profile/${item.users.id}`);
+                e.stopPropagation();
+              }}
+              sx={{
+                ":hover": {
+                  color: "gray",
+                  transition: "0.3s",
+                  cursor: "pointer",
+                },
+                transition: "0.3s",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <UserIcon fontSize="12" color="warning" />
+              <Typography variant="caption">{item.users.name}</Typography>
+            </Box>
+            <Box>
+              <LikeButton item={item} comment={comment} />
+              <CommentButton item={item} comment={comment} />
+            </Box>
           </Box>
         )}
       </CardContent>

@@ -17,7 +17,7 @@ export const queryClient = new QueryClient();
 
 export const AppContext = createContext();
 
-export const useApp = () => createContext();
+// export const useApp = () => createContext();
 
 const router = createBrowserRouter([
   {
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "likes/:id",
+        path: "/likes/:id/:type",
         element: <Likes />,
       },
     ],
