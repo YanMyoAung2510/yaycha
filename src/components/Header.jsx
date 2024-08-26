@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import { useContext } from "react";
 export default function Header() {
-  const { showForm, setShowForm, mode, setMode, showDrawer, setShowDrawer } =
+  const { showForm, setShowForm, mode, setMode, setShowDrawer, auth } =
     useApp();
   return (
     <AppBar position="sticky">
@@ -22,9 +22,11 @@ export default function Header() {
         </IconButton>
         <Typography sx={{ flexGrow: 1, ml: 2 }}>Yaycha</Typography>
         <Box>
-          <IconButton color="inherit" onClick={() => setShowForm(!showForm)}>
-            <AddIcon />
-          </IconButton>
+          {auth && (
+            <IconButton color="inherit" onClick={() => setShowForm(!showForm)}>
+              <AddIcon />
+            </IconButton>
+          )}
           {/* <IconButton color="inherit" edge="end">
             <LightModeIcon />
           </IconButton> */}

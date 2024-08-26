@@ -17,35 +17,56 @@ import { useApp } from "../useApp";
 export default function LikeButton({ item, comment }) {
   const navigate = useNavigate();
   const { auth } = useApp();
-  // console.log(item.CommentLike);
+
+  console.log(comment);
+
+  // function isLiked() {
+  //   if (!auth) return false;
+  //   if (!item.PostLike) return false;
+  //   return item.PostLike.find((like) => like.userId == auth.id);
+  // }
 
   function isLiked() {
     if (!auth) return false;
-    if (!item.PostLike) return false;
-    return item.PostLike.find((like) => like.userId == auth.id);
+
+    if (comment) {
+      // Check if the comment is liked
+      return (
+        item.CommentLike &&
+        item.CommentLike.find((like) => like.userId === auth.id)
+      );
+    } else {
+      // Check if the post is liked
+      return (
+        item.PostLike && item.PostLike.find((like) => like.userId === auth.id)
+      );
+    }
   }
+
   const likePost = useMutation((id) => addPostLike(id), {
     onSuccess: () => {
       queryClient.refetchQueries("posts");
-      queryClient.refetchQueries("comments");
     },
   });
+
+  const unlikePost = useMutation((id) => deletePostLike(id), {
+    onSuccess: () => {
+      queryClient.refetchQueries("posts");
+    },
+  });
+
   const likeComment = useMutation((id) => addCommentLike(id), {
     onSuccess: () => {
       queryClient.refetchQueries("comments");
     },
   });
-  const unlikePost = useMutation((id) => deletePostLike(id), {
-    onSuccess: () => {
-      queryClient.refetchQueries("posts");
-      queryClient.refetchQueries("comments");
-    },
-  });
+
   const unlikeComment = useMutation((id) => deleteCommentLike(id), {
     onSuccess: () => {
       queryClient.refetchQueries("comments");
     },
   });
+
   return (
     <ButtonGroup>
       {isLiked() ? (

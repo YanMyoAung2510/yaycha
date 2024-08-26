@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
 import { Alert, Box } from "@mui/material";
 import Form from "../components/Form";
 import Item from "../components/Item";
 import { useApp } from "../useApp";
-import { useLoaderData, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
 import { queryClient } from "../ThemedApp";
-import { id } from "date-fns/locale";
 import { deletePost, postPost } from "../libs/fetcher";
 
 const api = import.meta.env.VITE_API;
@@ -122,11 +119,11 @@ export default function Home() {
   }
   return (
     <Box>
-      {/* {showForm && <Form add={add} />} */}
       {showForm && auth && <Form add={add} />}
-      {data.map((item) => {
-        return <Item key={item.id} item={item} remove={remove.mutate} />;
-      })}{" "}
+      {data &&
+        data.map((item) => {
+          return <Item key={item.id} item={item} remove={remove.mutate} />;
+        })}
     </Box>
   );
 }

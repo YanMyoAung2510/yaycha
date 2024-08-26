@@ -153,7 +153,7 @@ export async function addPostLike(id) {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      "Content-Type": "applicatcon/json",
     },
   });
   if (res.ok) {
@@ -166,12 +166,15 @@ export async function addPostLike(id) {
  */
 export async function addCommentLike(id) {
   const token = getToken();
+
   const res = await fetch(`${api}/reaction/like/comments/${id}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "applicatcon/json",
     },
   });
+
   return res.json();
 }
 
@@ -212,7 +215,7 @@ export async function fetchPostLikes(id) {
 }
 
 /**
- ** fetcch comment like
+ ** fetch comment like
  */
 export async function fetchCommentLikes(id) {
   const res = await fetch(`${api}/reaction/like/comments/${id}`);

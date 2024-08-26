@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 export default function UserList({ title, data }) {
   const navigate = useNavigate();
+
   return (
     <Box>
       <Typography variant="h4" sx={{ mb: 3, textAlign: "center" }}>
