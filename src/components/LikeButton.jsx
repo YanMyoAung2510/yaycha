@@ -18,8 +18,6 @@ export default function LikeButton({ item, comment }) {
   const navigate = useNavigate();
   const { auth } = useApp();
 
-  console.log(comment);
-
   // function isLiked() {
   //   if (!auth) return false;
   //   if (!item.PostLike) return false;

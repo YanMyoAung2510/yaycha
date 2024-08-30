@@ -9,7 +9,6 @@ import { deletePost, postPost } from "../libs/fetcher";
 const api = import.meta.env.VITE_API;
 
 export default function Home() {
-  const { showForm, setGlobalMsg, auth } = useApp();
   // const navigate = useNavigate();
   // const [data, setData] = useState([]);
   // const [loading, setLoading] = useState(true);
@@ -60,6 +59,7 @@ export default function Home() {
   //       setError(true);
   //     });
   // }, []);
+  const { showForm, setGlobalMsg, auth } = useApp();
 
   const { isLoading, isError, error, data } = useQuery("posts", async () => {
     const res = await fetch(`${api}/content/posts`);
