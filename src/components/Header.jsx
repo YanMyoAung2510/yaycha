@@ -1,15 +1,19 @@
 import { useApp } from "../useApp";
 import { Box, AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Menu as MenuIcon,
   Add as AddIcon,
   LightMode as LightModeIcon,
   DarkMode as DarkModeIcon,
+  Close,
 } from "@mui/icons-material";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Header() {
   const { showForm, setShowForm, mode, setMode, setShowDrawer, auth } =
     useApp();
+  const navigate = useNavigate();
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -22,9 +26,14 @@ export default function Header() {
         </IconButton>
         <Typography sx={{ flexGrow: 1, ml: 2 }}>Yaycha</Typography>
         <Box>
-          {auth && (
+          {auth && showForm === false && (
             <IconButton color="inherit" onClick={() => setShowForm(!showForm)}>
               <AddIcon />
+            </IconButton>
+          )}
+          {showForm === true && (
+            <IconButton color="inherit" onClick={() => setShowForm(!showForm)}>
+              <Close />
             </IconButton>
           )}
           {/* <IconButton color="inherit" edge="end">
@@ -48,6 +57,13 @@ export default function Header() {
             </IconButton>
           )}
         </Box>
+        <IconButton
+          sx={{ ml: 1 }}
+          color="inherit"
+          onClick={() => navigate("/search")}
+        >
+          <SearchIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

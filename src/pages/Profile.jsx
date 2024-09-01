@@ -1,9 +1,10 @@
-import { Alert, Avatar, Box, Typography } from "@mui/material";
+import { Alert, Avatar, Box, Button, Typography } from "@mui/material";
 import { pink } from "@mui/material/colors";
 import Item from "../components/Item";
 import { fetchUser } from "../libs/fetcher";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import FollowButton from "../components/FollowButton";
 export default function Profile() {
   const { id } = useParams();
 
@@ -55,6 +56,7 @@ export default function Profile() {
               {data.bio}
             </Typography>
           </Box>
+          <FollowButton user={data} />
         </Box>
       </Box>
       {posts.length > 0 && (

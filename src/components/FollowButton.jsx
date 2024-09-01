@@ -1,8 +1,9 @@
-import { Button } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import { useMutation } from "react-query";
 import { queryClient } from "../ThemedApp";
 import { addFollow, deleteFollow } from "../libs/fetcher";
 import { useApp } from "../useApp";
+import { useNavigate } from "react-router-dom";
 export default function FollowButton({ user }) {
   const { auth } = useApp();
   function isFollowing() {
@@ -37,7 +38,7 @@ export default function FollowButton({ user }) {
   if (!auth) return false;
 
   return auth.id === user.id ? (
-    <></>
+    false
   ) : (
     <Button
       size="small"
