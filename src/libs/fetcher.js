@@ -272,3 +272,33 @@ export async function fetchFollowingPosts() {
   });
   return res.json();
 }
+
+export async function fetchNotis() {
+  const token = getToken();
+  const res = await fetch(`${api}/notis`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.json();
+}
+export async function putAllNotisRead() {
+  const token = getToken();
+  const res = await fetch(`${api}/notis/read`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.json();
+}
+export async function putNotiRead(id) {
+  const token = getToken();
+  const res = await fetch(`${api}/notis/read/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.json();
+}

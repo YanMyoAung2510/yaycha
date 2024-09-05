@@ -69,6 +69,7 @@ export default function Home() {
   // const [showLatest, setShowLatest] = useState(true);
   const [showLatest, setShowLatest] = useState(() => {
     const savedState = localStorage.getItem("showLatest");
+
     return savedState !== null ? JSON.parse(savedState) : true;
   });
   useEffect(() => {

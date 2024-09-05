@@ -12,6 +12,7 @@ import Likes from "./pages/Likes";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { fetchVerify } from "./libs/fetcher";
 import Search from "./pages/Search";
+import Notis from "./pages/Notis";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
+      },
+      {
+        path: "/notis",
+        element: <Notis />,
       },
     ],
   },
