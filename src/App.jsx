@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Form from "./components/Form";
 import Item from "./components/Item";
 import { AppContext } from "./ThemedApp";
-// import { useApp } from "./ThemedApp";
 export default function App() {
   const { showForm, setGlobalMsg } = useContext(AppContext);
   const [data, setData] = useState([
